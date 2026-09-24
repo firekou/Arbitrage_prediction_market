@@ -505,6 +505,56 @@ class BookAndFeeTests(unittest.TestCase):
         )
         self.assertIn("timezone", zones["differences"])
 
+    def test_queue_keeps_threshold_reject_for_shared_anchor(self) -> None:
+        from apm.matcher import build_review_queue
+        from apm.models import NormalizedMarket
+
+        def market(venue: str, market_id: str, title: str, rules: str) -> NormalizedMarket:
+            return NormalizedMarket(
+                venue_id=venue,
+                market_id=market_id,
+                event_id=None,
+                series_id=None,
+                title=title,
+                rules_text=rules,
+                rules_sha256="0",
+                status="active",
+                result=None,
+                close_time_utc=None,
+                expiration_time_utc=None,
+                outcomes={"YES": "y", "NO": "n"},
+                currency="USD",
+                notional="1",
+                fee=FeeSpec.unknown("test"),
+                raw_request_id="r",
+                active=True,
+                orderbook_enabled=True,
+            )
+
+        pairs = build_review_queue(
+            [market("polymarket_international", "pm", "Will Bitcoin be above $82,000 on September 24, 2026?", "Chainlink.")],
+            [market("kalshi", "ka", "Bitcoin price above $70,000 on Sep 24, 2026?", "CF Benchmarks.")],
+            limit=10,
+        )
+        self.assertEqual(len(pairs), 1)
+        self.assertEqual(pairs[0].review_status, R.REJECTED)
+        self.assertIn("threshold", pairs[0].differences)
+        self.assertNotEqual(pairs[0].review_status, "APPROVED")
+        mixed = build_review_queue(
+            [
+                market("polymarket_international", "pm-btc", "Will Bitcoin be above $82,000 on September 24, 2026?", "Chainlink."),
+                market("polymarket_international", "pm-fed", "Will the Fed decrease interest rates by 25 bps after the October 2026 meeting?", "Federal Reserve."),
+            ],
+            [
+                market("kalshi", "ka-btc", "Bitcoin price above $70,000 on Sep 24, 2026?", "CF Benchmarks."),
+                market("kalshi", "ka-fed", "Will the upper bound of the federal funds rate be above 6.00% following the Fed Apr 28, 2027 meeting?", "Federal Reserve."),
+            ],
+            limit=10,
+        )
+        anchors = " ".join(pair.left_title + " " + pair.right_title for pair in mixed).lower()
+        self.assertIn("bitcoin", anchors)
+        self.assertIn("fed", anchors)
+
 
 class ReplayAndTransportTests(unittest.TestCase):
     def test_single_leg_is_not_locked_and_replay_does_not_double_count(self) -> None:
@@ -594,7 +644,7 @@ class ReplayAndTransportTests(unittest.TestCase):
             ]
         )
         kalshi_client = HttpClient(timeout_seconds=1, max_retries=0, pause_seconds=0, transport=kalshi_transport, sleeper=lambda _s: None)
-        kalshi = KalshiAdapter(kalshi_client, config())
+        kalshi = KalshiAdapter(kalshi_client, config(kalshi_series_tickers=()))
         kalshi_batch = kalshi.discover()
         self.assertFalse(kalshi_batch.full_success)
         self.assertIn(R.PAGINATION_INTERRUPTED, kalshi_batch.reason_codes)

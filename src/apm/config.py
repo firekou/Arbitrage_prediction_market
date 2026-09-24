@@ -43,6 +43,8 @@ def load_config(path: str | Path) -> ResearchConfig:
         kalshi_fee_coefficient=Decimal(str(ka["fee_base_coefficient"])),
         kalshi_fee_schedule_version=str(ka["fee_schedule_version"]),
         kalshi_fee_rounding=str(ka["fee_rounding"]),
+        kalshi_series_tickers=tuple(str(item) for item in ka.get("series_tickers", [])),
+        max_markets_per_series=int(data["max_markets_per_series"]),
     )
 
 
@@ -75,6 +77,8 @@ class ResearchConfig:
     kalshi_fee_coefficient: Decimal
     kalshi_fee_schedule_version: str
     kalshi_fee_rounding: str
+    kalshi_series_tickers: tuple[str, ...]
+    max_markets_per_series: int
 
 
 def parse_yaml_subset(text: str) -> dict[str, Any]:

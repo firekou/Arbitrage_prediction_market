@@ -27,6 +27,19 @@ class KalshiAdapter:
         batch = FetchBatch()
         seen: set[str] = set()
         per_event: dict[str, int] = {}
+        for series_id in self.config.kalshi_series_tickers:
+            if len(batch.markets) >= self.config.max_active_markets_per_venue:
+                break
+            if self.consecutive_failures >= self.config.max_consecutive_failures:
+                batch.full_success = False
+                batch.reason_codes.append(R.RATE_LIMITED)
+                batch.notes.append("stopped kalshi series sample after consecutive failures")
+                break
+            url = (
+                f"{self.config.kalshi_rest_base}/markets?series_ticker={quote(series_id, safe='')}"
+                "&status=open&limit=20&mve_filter=exclude"
+            )
+            self._absorb_market_page(batch, seen, per_event, url, per_series_cap=self.config.max_markets_per_series)
         cursor: str | None = None
         pages = 0
         while pages < self.config.max_catalog_pages and len(batch.markets) < self.config.max_active_markets_per_venue:
@@ -40,42 +53,14 @@ class KalshiAdapter:
             )
             if cursor:
                 url += "&cursor=" + quote(cursor, safe="")
-            response = self.client.get_json(url, venue_id=self.venue_id, kind="kalshi_markets")
-            batch.captures.append(response.capture)
             pages += 1
-            payload = response.json_value
-            if response.capture.http_status != 200 or not isinstance(payload, dict) or not isinstance(payload.get("markets"), list):
-                self._fail(batch, schema=response.capture.http_status == 200, failure_code=response.capture.failure_code)
-                if batch.pages_ok:
-                    if R.PAGINATION_INTERRUPTED not in batch.reason_codes:
-                        batch.reason_codes.append(R.PAGINATION_INTERRUPTED)
+            added, payload, stopped = self._absorb_market_page(batch, seen, per_event, url, per_series_cap=None)
+            if stopped:
+                if batch.pages_ok and R.PAGINATION_INTERRUPTED not in batch.reason_codes:
+                    batch.reason_codes.append(R.PAGINATION_INTERRUPTED)
                 break
-            self._ok(batch)
-            for row in payload["markets"]:
-                if len(batch.markets) >= self.config.max_active_markets_per_venue:
-                    break
-                if not isinstance(row, dict):
-                    continue
-                event_id = str(row.get("event_ticker") or "")
-                if per_event.get(event_id, 0) >= self.config.max_markets_per_event:
-                    continue
-                ticker = str(row.get("ticker") or "")
-                if not ticker or ticker in seen:
-                    continue
-                try:
-                    market = normalize_kalshi_market(row, request_id=response.capture.request_id, venue_id=self.venue_id)
-                except ValueError:
-                    continue
-                market.extra["fee_inputs"] = {
-                    "series_fee_type": None,
-                    "series_multiplier": None,
-                    "changes": [],
-                    "series_loaded": False,
-                    "event_fees_loaded": False,
-                }
-                seen.add(ticker)
-                per_event[event_id] = per_event.get(event_id, 0) + 1
-                batch.markets.append(market)
+            if payload is None:
+                break
             next_cursor = payload.get("cursor") or ""
             if not next_cursor or next_cursor == cursor:
                 cursor = None
@@ -85,6 +70,55 @@ class KalshiAdapter:
         batch.notes.append("open binary markets only; mve_filter=exclude; capped stratified sample")
         self._load_fees(batch)
         return batch
+
+    def _absorb_market_page(
+        self,
+        batch: FetchBatch,
+        seen: set[str],
+        per_event: dict[str, int],
+        url: str,
+        *,
+        per_series_cap: int | None,
+    ) -> tuple[int, dict[str, Any] | None, bool]:
+        response = self.client.get_json(url, venue_id=self.venue_id, kind="kalshi_markets")
+        batch.captures.append(response.capture)
+        payload = response.json_value
+        if response.capture.http_status != 200 or not isinstance(payload, dict) or not isinstance(payload.get("markets"), list):
+            self._fail(batch, schema=response.capture.http_status == 200, failure_code=response.capture.failure_code)
+            return 0, None, True
+        self._ok(batch)
+        added = 0
+        series_added = 0
+        for row in payload["markets"]:
+            if len(batch.markets) >= self.config.max_active_markets_per_venue:
+                break
+            if per_series_cap is not None and series_added >= per_series_cap:
+                break
+            if not isinstance(row, dict):
+                continue
+            event_id = str(row.get("event_ticker") or "")
+            if per_event.get(event_id, 0) >= self.config.max_markets_per_event:
+                continue
+            ticker = str(row.get("ticker") or "")
+            if not ticker or ticker in seen:
+                continue
+            try:
+                market = normalize_kalshi_market(row, request_id=response.capture.request_id, venue_id=self.venue_id)
+            except ValueError:
+                continue
+            market.extra["fee_inputs"] = {
+                "series_fee_type": None,
+                "series_multiplier": None,
+                "changes": [],
+                "series_loaded": False,
+                "event_fees_loaded": False,
+            }
+            seen.add(ticker)
+            per_event[event_id] = per_event.get(event_id, 0) + 1
+            batch.markets.append(market)
+            added += 1
+            series_added += 1
+        return added, payload, False
 
     def snapshot_books(self, markets: list[NormalizedMarket]) -> FetchBatch:
         batch = FetchBatch(markets=list(markets))

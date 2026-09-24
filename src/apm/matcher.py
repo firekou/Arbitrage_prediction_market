@@ -16,6 +16,14 @@ _STOP = frozenset(
     into during than per than its if then otherwise yes no than
     """.split()
 )
+_ALIASES = {
+    "federal": "fed",
+    "btc": "bitcoin",
+    "eth": "ethereum",
+    "rates": "rate",
+    "funds": "rate",
+}
+_ANCHORS = frozenset({"bitcoin", "ethereum", "fed", "cpi", "inflation", "temperature", "nasdaq", "recession"})
 
 _MONTHS = {
     "jan": 1,
@@ -119,8 +127,8 @@ def build_review_queue(
     max_per_subject: int = 2,
 ) -> list[PairCandidate]:
     """Aim for a mix of likely-same (still PRICE_GAP_ONLY) and should-reject pairs."""
-    left_rows = [(market, extract_features(market.title, market.rules_text)) for market in left_markets]
-    right_rows = [(market, extract_features(market.title, market.rules_text)) for market in right_markets]
+    left_rows = [(market, extract_features(_surface(market), market.rules_text)) for market in left_markets]
+    right_rows = [(market, extract_features(_surface(market), market.rules_text)) for market in right_markets]
     likely: list[tuple[float, PairCandidate]] = []
     reject: list[tuple[float, PairCandidate]] = []
     for left_market, left_features in left_rows:
@@ -128,7 +136,9 @@ def build_review_queue(
             compared = compare_features(left_features, right_features)
             score = float(compared["jaccard"])
             differences: list[str] = compared["differences"]
-            if differences and score < reject_jaccard:
+            shared_anchor = bool((left_features.subject_tokens & right_features.subject_tokens) & _ANCHORS)
+            reject_floor = 0.15 if shared_anchor else reject_jaccard
+            if differences and score < reject_floor:
                 continue
             if not differences and score < min_jaccard:
                 continue
@@ -141,8 +151,8 @@ def build_review_queue(
                 left_market_id=left_market.market_id,
                 right_venue=right_market.venue_id,
                 right_market_id=right_market.market_id,
-                left_title=left_market.title,
-                right_title=right_market.title,
+                left_title=_display_title(left_market),
+                right_title=_display_title(right_market),
                 review_status=status,
                 direction_mapping="UNCONFIRMED",
                 rules_sha256_left=left_market.rules_sha256,
@@ -164,39 +174,64 @@ def _mix(
     limit: int,
     max_per_subject: int,
 ) -> list[PairCandidate]:
-    likely.sort(key=lambda item: item[0], reverse=True)
-    reject.sort(key=lambda item: item[0], reverse=True)
+    del max_per_subject  # anchor spread below replaces a single subject cap
+    likely_sorted = sorted(likely, key=lambda item: item[0], reverse=True)
+    reject_sorted = sorted(reject, key=lambda item: item[0], reverse=True)
     chosen: list[PairCandidate] = []
     seen: set[str] = set()
-    subject_counts: dict[str, int] = {}
+    per_anchor: dict[str, int] = {}
 
-    def take(pool: list[tuple[float, PairCandidate]], cap: int) -> None:
-        added = 0
+    def try_add(pair: PairCandidate, anchor_cap: int) -> bool:
+        if len(chosen) >= limit or pair.pair_id in seen:
+            return False
+        if any(existing.left_market_id == pair.left_market_id or existing.right_market_id == pair.right_market_id for existing in chosen):
+            return False
+        anchor = _anchor_of(pair)
+        if per_anchor.get(anchor, 0) >= anchor_cap:
+            return False
+        chosen.append(pair)
+        seen.add(pair.pair_id)
+        per_anchor[anchor] = per_anchor.get(anchor, 0) + 1
+        return True
+
+    def one_per_anchor(pool: list[tuple[float, PairCandidate]]) -> None:
+        covered: set[str] = set()
         for _, pair in pool:
-            if len(chosen) >= limit or added >= cap:
-                return
-            if pair.pair_id in seen:
+            anchor = _anchor_of(pair)
+            if anchor in covered:
                 continue
-            key = _subject_key(pair)
-            if subject_counts.get(key, 0) >= max_per_subject:
-                continue
-            chosen.append(pair)
-            seen.add(pair.pair_id)
-            subject_counts[key] = subject_counts.get(key, 0) + 1
-            added += 1
+            if try_add(pair, 1):
+                covered.add(anchor)
 
-    target_each = max(limit // 2, 1)
-    take(likely, target_each)
-    take(reject, limit - len(chosen))
-    if len(chosen) < limit:
-        take(likely, limit - len(chosen))
+    one_per_anchor(likely_sorted)
+    one_per_anchor(reject_sorted)
+    for _, pair in reject_sorted:
+        try_add(pair, 4)
+    for _, pair in likely_sorted:
+        try_add(pair, 4)
     return chosen
+
+
+def _anchor_of(pair: PairCandidate) -> str:
+    left = set(pair.comparison.get("left", {}).get("subject_tokens", []))
+    right = set(pair.comparison.get("right", {}).get("subject_tokens", []))
+    shared = sorted((left & right) & _ANCHORS)
+    if shared:
+        return shared[0]
+    return _subject_key(pair)
 
 
 def _subject_key(pair: PairCandidate) -> str:
     tokens = re.findall(r"[a-z0-9]+", pair.left_title.lower())
     kept = [token for token in tokens if token not in _STOP and len(token) > 2][:3]
     return " ".join(kept)
+
+
+def _display_title(market: NormalizedMarket) -> str:
+    subtitle = str((market.extra or {}).get("yes_sub_title") or "").strip()
+    if subtitle and subtitle not in market.title:
+        return f"{market.title} [{subtitle}]"
+    return market.title
 
 
 def _pair_id(left: NormalizedMarket, right: NormalizedMarket) -> str:
@@ -225,9 +260,26 @@ def _feature_dict(features: Features) -> dict[str, list[str]]:
     }
 
 
+def _surface(market: NormalizedMarket) -> str:
+    parts = [market.title]
+    for key in ("yes_sub_title", "floor_strike"):
+        value = market.extra.get(key) if market.extra else None
+        if value:
+            parts.append(str(value))
+    return " ".join(parts)
+
+
 def _tokens(title: str) -> list[str]:
     words = re.findall(r"[a-z0-9]+", title.lower())
-    return [word for word in words if word not in _STOP and not word.isdigit() and len(word) > 2 and word not in _MONTHS]
+    kept: list[str] = []
+    for word in words:
+        if word in _STOP or word.isdigit() or len(word) <= 2 or word in _MONTHS:
+            continue
+        word = _ALIASES.get(word, word)
+        if word.endswith("s") and len(word) > 4 and not word.endswith("ss"):
+            word = word[:-1]
+        kept.append(word)
+    return kept
 
 
 def _numbers(text: str) -> list[str]:

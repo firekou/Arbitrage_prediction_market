@@ -29,7 +29,7 @@ Base URL: `https://external-api.kalshi.com/trade-api/v2`. No API key.
 
 | Need | Endpoint | Auth | Notes |
 | --- | --- | --- | --- |
-| Open binary markets | `GET /markets?status=open&mve_filter=exclude` | No | Multivariate combos are excluded. At most 8 markets per event, 100 markets total |
+| Open binary markets | `GET /markets?status=open&mve_filter=exclude` | No | Multivariate combos are excluded. Configured series are sampled first (at most 6 each), then the open-market head. At most 8 markets per event and 100 markets total |
 | Series fee | `GET /series/{series_ticker}` | No | `fee_type`, `fee_multiplier` |
 | Event fee changes | `GET /events/fee_changes?event_ticker=&show_historical=true` | No | A change applies only when `scheduled_ts` is at or before the book receive time |
 | Order book | `GET /markets/{ticker}/orderbook` | No | `orderbook_fp.yes_dollars` and `no_dollars` are bid ladders. Asks are implied: YES ask = 1 − NO bid, size copied. An empty side is missing, not a zero price |
