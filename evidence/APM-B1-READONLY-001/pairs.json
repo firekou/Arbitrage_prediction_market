@@ -1,0 +1,765 @@
+[
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "operator",
+        "timezone",
+        "settlement_source"
+      ],
+      "jaccard": "1.000000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [],
+        "numbers": [
+          "000",
+          "24",
+          "82"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "binance"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-09-24"
+        ],
+        "numbers": [
+          "800",
+          "94",
+          "94799.99"
+        ],
+        "operators": [
+          ">="
+        ],
+        "sources": [
+          "cf_benchmarks",
+          "coinbase"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "EDT"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "operator",
+      "timezone",
+      "settlement_source"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "4641123",
+    "left_title": "Will the price of Bitcoin be above $82,000 on September 24?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_0c048b8452bf",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXBTCD-26SEP2408-T94799.99",
+    "right_title": "Bitcoin price on Sep 24, 2026? [$94,800 or above]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "43c4bf4589be731ca6419e8b54d9f0a0874e7572a4497e617adf4ae12d6e1025",
+    "rules_sha256_right": "0b2ebbf58f198bef33d8478d832fec522a9cff3ab1e4e7a7dc10a2df3ba7dc5b",
+    "score": "1.000000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "date"
+      ],
+      "jaccard": "0.375000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-10"
+        ],
+        "numbers": [],
+        "operators": [],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "change",
+          "fed",
+          "interest",
+          "meeting",
+          "rate",
+          "there"
+        ],
+        "timezones": []
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2027-04-28"
+        ],
+        "numbers": [
+          "6"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "bound",
+          "fed",
+          "meeting",
+          "rate",
+          "upper"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "date"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "2589812",
+    "left_title": "Will there be no change in Fed interest rates after the October 2026 meeting?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_a8b63e46b2eb",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXFED-27APR-T6.00",
+    "right_title": "Will the upper bound of the federal funds rate be above 6.00% following the Fed's Apr 28, 2027 meeting? [Above 6.00%]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "aef6b5c5a5f96b0671c51926d2cbccdc9bb10ff82330b7b8b95d41d50ea8bf8e",
+    "rules_sha256_right": "dc3831f1bfb416759956505904aaab2ecc84b3300abf7b2eb40b10032052fad4",
+    "score": "0.375000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "operator",
+        "timezone",
+        "settlement_source"
+      ],
+      "jaccard": "0.333333",
+      "left": {
+        "cancel_refund": [],
+        "dates": [],
+        "numbers": [
+          "000",
+          "2",
+          "24"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "binance"
+        ],
+        "subject_tokens": [
+          "ethereum"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-09-24"
+        ],
+        "numbers": [
+          "3",
+          "445",
+          "8",
+          "99"
+        ],
+        "operators": [
+          ">="
+        ],
+        "sources": [
+          "cf_benchmarks",
+          "coinbase"
+        ],
+        "subject_tokens": [
+          "8am",
+          "edt",
+          "ethereum"
+        ],
+        "timezones": [
+          "EDT"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "operator",
+      "timezone",
+      "settlement_source"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "4641083",
+    "left_title": "Will the price of Ethereum be above $2,000 on September 24?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_f7c63e0b0ee9",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXETH-26SEP2408-T3444.99",
+    "right_title": "Ethereum price at Sep 24, 2026 at 8am EDT? [$3,445 or above]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "4afe33254cdf2f5149496004268de3a939a639db70ef8462346cfb2b6ec3a3a4",
+    "rules_sha256_right": "96971aad41627333404efd392718c7c9c012a75c25ea318d43c0fe835f2e757c",
+    "score": "0.333333"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "operator",
+        "timezone",
+        "settlement_source"
+      ],
+      "jaccard": "1.000000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [],
+        "numbers": [
+          "000",
+          "24",
+          "86"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "binance"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-09-24"
+        ],
+        "numbers": [
+          "700",
+          "94",
+          "94699.99"
+        ],
+        "operators": [
+          ">="
+        ],
+        "sources": [
+          "cf_benchmarks",
+          "coinbase"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "EDT"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "operator",
+      "timezone",
+      "settlement_source"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "4641128",
+    "left_title": "Will the price of Bitcoin be above $86,000 on September 24?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_dadfcf547880",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXBTCD-26SEP2408-T94699.99",
+    "right_title": "Bitcoin price on Sep 24, 2026? [$94,700 or above]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "43c4bf4589be731ca6419e8b54d9f0a0874e7572a4497e617adf4ae12d6e1025",
+    "rules_sha256_right": "cbf85b79600c9e7f18c1d0b5bfff3514aa4887b41aa84fd2c7f76dd970c1b0fa",
+    "score": "1.000000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "operator",
+        "timezone",
+        "settlement_source"
+      ],
+      "jaccard": "1.000000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [],
+        "numbers": [
+          "000",
+          "24",
+          "80"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "binance"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-09-24"
+        ],
+        "numbers": [
+          "600",
+          "94",
+          "94599.99"
+        ],
+        "operators": [
+          ">="
+        ],
+        "sources": [
+          "cf_benchmarks",
+          "coinbase"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "EDT"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "operator",
+      "timezone",
+      "settlement_source"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "4641122",
+    "left_title": "Will the price of Bitcoin be above $80,000 on September 24?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_02bdecbfe79c",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXBTCD-26SEP2408-T94599.99",
+    "right_title": "Bitcoin price on Sep 24, 2026? [$94,600 or above]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "43c4bf4589be731ca6419e8b54d9f0a0874e7572a4497e617adf4ae12d6e1025",
+    "rules_sha256_right": "05f054737987ff1ac9ece90ea7fc14e8d4966f8fde11bdf73c0f1dca875f85bf",
+    "score": "1.000000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "operator",
+        "timezone",
+        "settlement_source"
+      ],
+      "jaccard": "1.000000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [],
+        "numbers": [
+          "000",
+          "24",
+          "66"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "binance"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-09-24"
+        ],
+        "numbers": [
+          "500",
+          "94",
+          "94499.99"
+        ],
+        "operators": [
+          ">="
+        ],
+        "sources": [
+          "cf_benchmarks",
+          "coinbase"
+        ],
+        "subject_tokens": [
+          "bitcoin"
+        ],
+        "timezones": [
+          "EDT"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "operator",
+      "timezone",
+      "settlement_source"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "4641107",
+    "left_title": "Will the price of Bitcoin be above $66,000 on September 24?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_bcf7f1ff091b",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXBTCD-26SEP2408-T94499.99",
+    "right_title": "Bitcoin price on Sep 24, 2026? [$94,500 or above]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "43c4bf4589be731ca6419e8b54d9f0a0874e7572a4497e617adf4ae12d6e1025",
+    "rules_sha256_right": "a7e1a1f48d5a06d4c0e9b89fe0ef8873cb4a96da636c658dd5b2151e6c5af60c",
+    "score": "1.000000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "date"
+      ],
+      "jaccard": "0.375000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-10"
+        ],
+        "numbers": [
+          "25"
+        ],
+        "operators": [],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "bps",
+          "fed",
+          "increase",
+          "interest",
+          "meeting",
+          "rate"
+        ],
+        "timezones": []
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2027-04-28"
+        ],
+        "numbers": [
+          "5.75"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "bound",
+          "fed",
+          "meeting",
+          "rate",
+          "upper"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "date"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "2589813",
+    "left_title": "Will the Fed increase interest rates by 25 bps after the October 2026 meeting?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_95952792d6de",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXFED-27APR-T5.75",
+    "right_title": "Will the upper bound of the federal funds rate be above 5.75% following the Fed's Apr 28, 2027 meeting? [Above 5.75%]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "aef6b5c5a5f96b0671c51926d2cbccdc9bb10ff82330b7b8b95d41d50ea8bf8e",
+    "rules_sha256_right": "5b37d5652ce6b32d5203042bf80fb4e5eb6f516845b631493e1fd8185205764f",
+    "score": "0.375000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "date"
+      ],
+      "jaccard": "0.375000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-10"
+        ],
+        "numbers": [
+          "50"
+        ],
+        "operators": [],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "bps",
+          "fed",
+          "increase",
+          "interest",
+          "meeting",
+          "rate"
+        ],
+        "timezones": []
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2027-04-28"
+        ],
+        "numbers": [
+          "5.5"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "bound",
+          "fed",
+          "meeting",
+          "rate",
+          "upper"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "date"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "2589814",
+    "left_title": "Will the Fed increase interest rates by 50+ bps after the October 2026 meeting?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_b884e220a1d5",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXFED-27APR-T5.50",
+    "right_title": "Will the upper bound of the federal funds rate be above 5.50% following the Fed's Apr 28, 2027 meeting? [Above 5.50%]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "aef6b5c5a5f96b0671c51926d2cbccdc9bb10ff82330b7b8b95d41d50ea8bf8e",
+    "rules_sha256_right": "1b612b37d28cfd1a6227e583952fdb91fedabedca9b03a565e491162280d8843",
+    "score": "0.375000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "date"
+      ],
+      "jaccard": "0.375000",
+      "left": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-10"
+        ],
+        "numbers": [
+          "50"
+        ],
+        "operators": [],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "bps",
+          "decrease",
+          "fed",
+          "interest",
+          "meeting",
+          "rate"
+        ],
+        "timezones": []
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2027-04-28"
+        ],
+        "numbers": [
+          "5.25"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "federal_reserve"
+        ],
+        "subject_tokens": [
+          "bound",
+          "fed",
+          "meeting",
+          "rate",
+          "upper"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "date"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "2589810",
+    "left_title": "Will the Fed decrease interest rates by 50+ bps after the October 2026 meeting?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_5b7c81bf0747",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXFED-27APR-T5.25",
+    "right_title": "Will the upper bound of the federal funds rate be above 5.25% following the Fed's Apr 28, 2027 meeting? [Above 5.25%]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "aef6b5c5a5f96b0671c51926d2cbccdc9bb10ff82330b7b8b95d41d50ea8bf8e",
+    "rules_sha256_right": "df9d3f7336cbf352f187ab9570e9d1109705f309c4dc4054685fec7ec5bbf6dd",
+    "score": "0.375000"
+  },
+  {
+    "approval_version": null,
+    "comparison": {
+      "differences": [
+        "threshold",
+        "operator",
+        "timezone",
+        "settlement_source"
+      ],
+      "jaccard": "0.333333",
+      "left": {
+        "cancel_refund": [],
+        "dates": [],
+        "numbers": [
+          "100",
+          "2",
+          "24"
+        ],
+        "operators": [
+          ">"
+        ],
+        "sources": [
+          "binance"
+        ],
+        "subject_tokens": [
+          "ethereum"
+        ],
+        "timezones": [
+          "ET"
+        ]
+      },
+      "right": {
+        "cancel_refund": [],
+        "dates": [
+          "2026-09-24"
+        ],
+        "numbers": [
+          "1",
+          "8",
+          "954.99"
+        ],
+        "operators": [
+          "<="
+        ],
+        "sources": [
+          "cf_benchmarks",
+          "coinbase"
+        ],
+        "subject_tokens": [
+          "8am",
+          "edt",
+          "ethereum"
+        ],
+        "timezones": [
+          "EDT"
+        ]
+      },
+      "rules_relation": "inconsistent"
+    },
+    "differences": [
+      "threshold",
+      "operator",
+      "timezone",
+      "settlement_source"
+    ],
+    "direction_mapping": "UNCONFIRMED",
+    "left_market_id": "4641085",
+    "left_title": "Will the price of Ethereum be above $2,100 on September 24?",
+    "left_venue": "polymarket_international",
+    "pair_id": "pair_d97fa9600fc9",
+    "review_status": "REJECTED",
+    "reviewer": null,
+    "right_market_id": "KXETH-26SEP2408-T1955",
+    "right_title": "Ethereum price at Sep 24, 2026 at 8am EDT? [$1,954.99 or below]",
+    "right_venue": "kalshi",
+    "rules_sha256_left": "4afe33254cdf2f5149496004268de3a939a639db70ef8462346cfb2b6ec3a3a4",
+    "rules_sha256_right": "0ea920741f130667490a93ec9756603e34b16c7216bc228a0a147c782f5df620",
+    "score": "0.333333"
+  }
+]

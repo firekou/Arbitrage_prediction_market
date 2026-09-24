@@ -1,0 +1,586 @@
+{
+  "base_sha": "6df184d7c331ff525fb3bb2b09df3628b16c0611",
+  "blockers": [],
+  "commands": [
+    {
+      "command": "PYTHONPATH=src python3 -m unittest discover -s tests -v",
+      "exit_code": "see report footer after the operator run"
+    },
+    {
+      "command": "PYTHONPATH=src python3 -m apm scan --config configs/research.yaml --evidence evidence/APM-B1-READONLY-001 --report reports/APM-B1-READONLY-001.md --pairs docs/PAIR_REVIEW_QUEUE.md --base-sha 6df184d7c331ff525fb3bb2b09df3628b16c0611",
+      "exit_code": "see report footer after the operator run"
+    }
+  ],
+  "cross_market_screens": 20,
+  "done": [
+    "Readonly Polymarket international Gamma/CLOB and Kalshi REST adapters with a GET host allowlist",
+    "Raw captures store URL, request time, receive time, body, and payload SHA-256; missing quote times stay UNKNOWN",
+    "Pair queue mixes parsed likely-same and should-reject cases and never writes APPROVED",
+    "Decimal engine walks ask levels for same-market and both cross directions",
+    "Unit tests cover fee wipeout, second-level depth, Kalshi bid inversion, empty books, stale and missing times, unknown fees, inconsistent rules, single-leg fills, and replay idempotency"
+  ],
+  "evaluated_at_utc": "2026-09-24T11:24:03.004469Z",
+  "evidence_dir": "evidence/APM-B1-READONLY-001",
+  "executable_count": 0,
+  "http": {
+    "failures": 0,
+    "requests": 139,
+    "successes": 139
+  },
+  "implementation_head_at_scan": "41bc3b3d9da1b3ccbdd16ddbb3b9218d0858eec0",
+  "manifest_path": "evidence/APM-B1-READONLY-001/manifest.json",
+  "next_steps": [
+    "GPT reviews this head and the raw manifest before any rule is marked settlement-equivalent",
+    "Keep the 5-second age and 2-second skew gates; do not relax them to manufacture an executable row",
+    "B2 can add a human rule review on docs/PAIR_REVIEW_QUEUE.md and a PMXT capability probe"
+  ],
+  "not_done": [
+    "No pair is settlement-APPROVED; live payout is not fixed at 1",
+    "Polymarket US is not queried",
+    "PMXT is not attached",
+    "No WebSocket, no 24h observation, no order path",
+    "Kalshi public order books in this batch have no exchange timestamp, so those legs fail TIMESTAMP_UNKNOWN",
+    "Cross-venue USD vs USDC is CURRENCY_UNKNOWN until a reviewed conversion exists",
+    "Kalshi taker fee uses the July 2026 quadratic coefficient with a non-direct cent upper bound, not a direct-member exact fee"
+  ],
+  "opportunity_insert": {
+    "inserted": 68,
+    "rows": 68
+  },
+  "pair_count": 10,
+  "price_gap_only_count": 48,
+  "raw_jsonl": "evidence/APM-B1-READONLY-001/raw.jsonl",
+  "raw_records": 139,
+  "reason_counts": {
+    "COMPLEMENTARITY_UNCONFIRMED": 68,
+    "CURRENCY_UNKNOWN": 20,
+    "EMPTY_BOOK": 3,
+    "MISSING_SIDE": 25,
+    "RULES_INCONSISTENT": 20,
+    "RULES_UNKNOWN": 48,
+    "STALE_QUOTE": 13,
+    "TIMESTAMP_UNKNOWN": 44
+  },
+  "rejected_count": 20,
+  "same_market_screens": 48,
+  "scanner_completed": true,
+  "schema_version": "apm.b1.1",
+  "screen_sample": [
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "2589812"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "2589813"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.010",
+      "market_ids": [
+        "3215074"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.010",
+      "market_ids": [
+        "2772194"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.010",
+      "market_ids": [
+        "2589814"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "4464920"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.20",
+      "market_ids": [
+        "4466475"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.010",
+      "market_ids": [
+        "2589810"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.010",
+      "market_ids": [
+        "629040"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "4641064"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "4052418"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "665374"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "629030"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "2176270"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.090",
+      "market_ids": [
+        "4641123"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "3128888"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.10",
+      "market_ids": [
+        "601819"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.080",
+      "market_ids": [
+        "2046990"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.010",
+      "market_ids": [
+        "559672"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.030",
+      "market_ids": [
+        "4641128"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": "-0.010",
+      "market_ids": [
+        "4641122"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "4641107"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "4641083"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "4641085"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "STALE_QUOTE",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "KXBTC-26SEP2408-T94799.99"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "TIMESTAMP_UNKNOWN",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "KXBTC-26SEP2408-T76200"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "TIMESTAMP_UNKNOWN",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "KXBTC-26SEP2408-B94750"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "TIMESTAMP_UNKNOWN",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "KXBTC-26SEP2408-B94650"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "TIMESTAMP_UNKNOWN",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "KXBTC-26SEP2408-B94550"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "TIMESTAMP_UNKNOWN",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    },
+    {
+      "approval_status": "PRICE_GAP_ONLY",
+      "executable": false,
+      "hypothetical_price_gap": null,
+      "market_ids": [
+        "KXBTC-26SEP2408-B94450"
+      ],
+      "net_edge": null,
+      "q": "10",
+      "reason_codes": [
+        "MISSING_SIDE",
+        "TIMESTAMP_UNKNOWN",
+        "RULES_UNKNOWN",
+        "COMPLEMENTARITY_UNCONFIRMED"
+      ],
+      "strategy": "same_market_yes_no"
+    }
+  ],
+  "status": "READY_FOR_GPT_REVIEW",
+  "venues": {
+    "kalshi": {
+      "book_full_success": true,
+      "book_markets": 24,
+      "book_pages_failed": 0,
+      "book_pages_ok": 24,
+      "capped": true,
+      "catalog_full_success": true,
+      "catalog_pages_failed": 0,
+      "catalog_pages_ok": 64,
+      "catalog_reason_codes": [],
+      "markets": 100,
+      "markets_with_parseable_book": 24,
+      "notes": [
+        "open binary markets only; mve_filter=exclude; capped stratified sample"
+      ],
+      "reason_codes": []
+    },
+    "polymarket_international": {
+      "book_full_success": true,
+      "book_markets": 24,
+      "book_pages_failed": 0,
+      "book_pages_ok": 48,
+      "capped": true,
+      "catalog_full_success": true,
+      "catalog_pages_failed": 0,
+      "catalog_pages_ok": 3,
+      "catalog_reason_codes": [],
+      "markets": 100,
+      "markets_with_parseable_book": 24,
+      "notes": [
+        "catalog is a capped public sample, not the full venue"
+      ],
+      "reason_codes": []
+    }
+  },
+  "work_id": "APM-B1-READONLY-001"
+}
