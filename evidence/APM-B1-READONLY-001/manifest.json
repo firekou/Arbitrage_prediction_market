@@ -1,0 +1,43 @@
+{
+  "base_sha": "6df184d7c331ff525fb3bb2b09df3628b16c0611",
+  "files": [
+    {
+      "bytes": 393442,
+      "path": "books.json",
+      "sha256": "28663668e5e6daadf5268591324a9ea6eefe1639c64d4ff3d301b5df8a59353a"
+    },
+    {
+      "bytes": 417660,
+      "path": "computations.json",
+      "sha256": "304d55b20fff5df87d87016047bdbb8e7f658f75c9045f0db6a232f3f61caf5f"
+    },
+    {
+      "bytes": 541843,
+      "path": "normalized_markets.json",
+      "sha256": "00dfd37f7f308dc23e0ebcfb3a76b37a67717596d7233093931e4efdc92ca16a"
+    },
+    {
+      "bytes": 18329,
+      "path": "pairs.json",
+      "sha256": "f023bd8365adddffc8872f4bcd5aac2f16bc6e4175b8657147cd1daafea44ea9"
+    },
+    {
+      "bytes": 1812793,
+      "path": "raw.jsonl",
+      "sha256": "06ef483a8131adbbd9171089528a648ef4bd51e561ebccc4df04bb77f453a851"
+    },
+    {
+      "bytes": 15292,
+      "path": "scan_result.json",
+      "sha256": "51612ec23526ff026799ad38db45227830061eaddf955cc86695d31edea1ccc2"
+    },
+    {
+      "bytes": 429790,
+      "path": "screens.json",
+      "sha256": "d3cbe763a22eb322abaab981c5bfa7265b29a2823763e898eff8d22456812cf5"
+    }
+  ],
+  "implementation_head_at_scan": "41bc3b3d9da1b3ccbdd16ddbb3b9218d0858eec0",
+  "schema_version": "apm.b1.1",
+  "work_id": "APM-B1-READONLY-001"
+}

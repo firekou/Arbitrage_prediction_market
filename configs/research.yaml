@@ -1,0 +1,58 @@
+# Readonly research settings. No credentials.
+schema_version: apm.b1.1
+readonly: true
+max_active_markets_per_venue: 100
+max_markets_per_event: 8
+max_markets_per_series: 6
+max_catalog_pages: 4
+max_books_per_venue: 24
+min_books_target: 8
+request_timeout_seconds: 10
+max_retries: 2
+max_consecutive_failures: 3
+pause_seconds: 0.05
+max_quote_age_seconds: 5
+max_leg_skew_seconds: 2
+clock_ahead_tolerance_seconds: 2
+research_quantity: "10"
+buffer: "0"
+other_cost: "0"
+min_net_edge: "0"
+polymarket:
+  venue_id: polymarket_international
+  gamma_base: https://gamma-api.polymarket.com
+  clob_base: https://clob.polymarket.com
+  topic_queries:
+    - bitcoin
+    - ethereum
+    - fed
+    - cpi
+    - inflation
+    - recession
+    - unemployment
+    - temperature
+    - trump
+    - senate
+kalshi:
+  venue_id: kalshi
+  rest_base: https://external-api.kalshi.com/trade-api/v2
+  # Coefficient from the Kalshi fee schedule PDF updated 2026-07-07:
+  # fees = round up(M x 0.07 x C x P x (1-P)), non-direct cent upper bound.
+  fee_base_coefficient: "0.07"
+  fee_schedule_version: kalshi-fee-schedule-2026-07-07
+  fee_rounding: non_direct_cent_upper_bound
+  # Public series sampled before the open-market head so the 100-market cap
+  # is not only the sports pages the exchange returns first.
+  series_tickers:
+    - KXBTC
+    - KXBTCD
+    - KXBTCMAX150
+    - KXETH
+    - KXETHD
+    - KXFED
+    - KXFEDDECISION
+    - KXCPI
+    - KXCPIYOY
+    - KXHIGHNY
+    - KXINX
+    - KXNASDAQ100
