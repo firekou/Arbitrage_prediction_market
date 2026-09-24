@@ -1,0 +1,21 @@
+{
+  "fixture_class": "live_recorded",
+  "trimmed": true,
+  "note": "Two levels kept from a public CLOB GET /book response on 2026-09-24. Not a full book.",
+  "market": "0x1d925c6933062c2e38031293612d8680ffa097c5d3ba2f87a8ecc565bd47183e",
+  "asset_id": "32338220190071351435772801779725302244575775216413325951443816017994629993401",
+  "timestamp": "1790247890263",
+  "hash": "trimmed",
+  "bids": [
+    {"price": "0.040", "size": "100.5"},
+    {"price": "0.041", "size": "10"}
+  ],
+  "asks": [
+    {"price": "0.080", "size": "4"},
+    {"price": "0.043", "size": "2147.58"}
+  ],
+  "min_order_size": "1",
+  "tick_size": "0.001",
+  "neg_risk": false,
+  "last_trade_price": "0.0425"
+}
